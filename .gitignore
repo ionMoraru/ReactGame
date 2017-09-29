@@ -3,6 +3,9 @@
 # dependencies
 /node_modules
 
+# scss
+/src/styles/Game.css
+
 # testing
 /coverage
 
