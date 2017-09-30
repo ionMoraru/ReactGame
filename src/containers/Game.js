@@ -11,8 +11,7 @@ class Game extends Component {
         squares: Array(9).fill(null),
       }],
       stepNumber: 0,
-      xIsNext: true,
-      moveSelected: false,
+      xIsNext: true
     };
 
     this.calculateWinner = this.calculateWinner.bind(this);
@@ -36,12 +35,16 @@ class Game extends Component {
     });
   }
 
-  jumpTo(step) {
+  jumpTo(e, step) {
     this.setState({
       stepNumber: step,
-      xIsNext: (step % 2) === 0,
-      moveSelected: !this.state.moveSelected,
+      xIsNext: (step % 2) === 0
     });
+    this.changeStyle(e.target.style)
+  }
+
+  changeStyle(e){
+    e.fontWeight === 'bold' ? e.fontWeight = 'normal' : e.fontWeight = 'bold'
   }
 
   calculateWinner(squares) {
@@ -69,13 +72,12 @@ class Game extends Component {
     const current = history[this.state.stepNumber];
     const winner = this.calculateWinner(current.squares);
     const draw = this.state.history.length === 10;
-    const selected = this.state.moveSelected ? {fontWeight: 'bold'} : {fontWeight: 'normal'};
     
     const moves = history.map((step, move) => {
       const desc = move ? 'Move # ' + move :  'Game start';
       return (
         <li key={move}>
-          <a href="#" style={selected} onClick={() => this.jumpTo(move)}>{desc}</a>
+          <a href="#" onClick={(e) => this.jumpTo(e, move)}>{desc}</a>
         </li>
       );
     });
